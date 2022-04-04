@@ -3,7 +3,7 @@ const template = ["DELME ahead", "Likely DELME", "If Only I had a DELME", "DELME
 const conjunction = ["and then", "or", "but", "therefore", "in short", "except", "by the way", "so to speak", "all the more", ","];
 
 const regexPunctuation = /[!?]$/g;
-const regexDelimGlobal = /DELME/g;
+const regexDelim 	   = /DELME/g;
 
 // RNG
 function getRandomInt(max) {
@@ -40,14 +40,14 @@ function genMessage() {
 	if(twoTempl) {
 		let tempSel = "";
 		do {
-			tempSel = template[ getRandomInt(template.length)-1 ];
+			tempSel = template[ getRandomInt(template.length) ];
 		} while(regexPunctuation.test(tempSel));
 		templateSel.push(tempSel);
 		wordCount++;
 	}
 
 	// Grabs a single template
-	templateSel.push( template[ getRandomInt(template.length)-1 ] );
+	templateSel.push( template[ getRandomInt(template.length) ] );
 	wordCount++;
 	
 	// Get the words we will use for the substitutions.
@@ -61,15 +61,17 @@ function genMessage() {
 
 	// Do the initial template substitution
 	tempTempl = String(templateSel.shift());
-	output += tempTempl.replaceAll("DELME", wordSel[0]);
+	output += tempTempl.replaceAll(regexDelim, wordSel[0]);
 
 	// If we have two templates, grab a conjunction and repeat the above
 	// process for the second template.
 	if(twoTempl) {
-		tempTempl = ", " + conjunction[ getRandomInt(conjunction.length)-1 ] + " ";
+		tempTempl = ", " + conjunction[ getRandomInt(conjunction.length) ] + " ";
 		tempTempl += String(templateSel.shift());
-		output += tempTempl.replaceAll("DELME", wordSel[1]);
+		output += tempTempl.replace(regexDelim, wordSel[1]);
 	}
 
 	return output;
 }
+
+genMessage();
