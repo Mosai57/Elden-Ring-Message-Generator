@@ -42,7 +42,7 @@ my @conjunction = (
 	",",
 );
 
-my $words_ifile = "elden.txt";
+my $words_ifile = "../_RESOURCES/elden.txt";
 my @words = read_file($words_ifile);
 
 # Coin flip to determine if we use 1 or 2 templates for the message.
